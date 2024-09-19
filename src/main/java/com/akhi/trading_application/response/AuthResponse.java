@@ -2,7 +2,7 @@ package com.akhi.trading_application.response;
 
 import lombok.Data;
 
-@Data
+@Data 
 public class AuthResponse {
     private String jwt;
     private boolean status;
