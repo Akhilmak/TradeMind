@@ -63,11 +63,12 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<AuthResponse> login(@RequestBody User user) throws Exception{
-        
+
         String userName=user.getEmail();
         String password=user.getPassword();
+        
+
         Authentication auth = authenticate(userName,password);
-            
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         String jwt=JwtProvider.generateToken(auth);
@@ -75,21 +76,23 @@ public class AuthController {
         AuthResponse response = new AuthResponse();
         response.setJwt(jwt);
         response.setStatus(true);
-        response.setMessage("Login Successfull.....!");
+        response.setMessage("login Successfull.....!");
         return new ResponseEntity<>(response , HttpStatus.CREATED);
+    }
+
+    private Authentication authenticate(String userName, String password) throws Exception {
+        UserDetails userDetais=customUserDetailsService.loadUserByUsername(userName);
+        if(userDetais==null){
+            throw new BadCredentialsException("Invalid Username....!");
+        }
+        if(!password.equals(userDetais.getPassword())){
+            throw new BadCredentialsException("Invalid Password....!");
+        }
+
+        return new UsernamePasswordAuthenticationToken(userDetais, password, userDetais.getAuthorities());
 
     }
-    private Authentication authenticate(String userName, String password) {
-
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(userName);
-        if(userDetails==null){
-            throw new BadCredentialsException("Invalid UserName....!");
-        }
-        if(!password.equals(userDetails.getPassword())){
-            throw new BadCredentialsException("Invalid password....!");
-        }
-        return new UsernamePasswordAuthenticationToken(password, userDetails,userDetails.getAuthorities());
-    }
+        
 
 
 }
