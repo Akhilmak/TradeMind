@@ -2,7 +2,9 @@ package com.akhi.trading_application.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TwoFactorOtpRepository extends JpaRepository<TwoFactorOTP, Long> {
+import com.akhi.trading_application.modal.TwoFactorOTP;
 
+public interface TwoFactorOtpRepository extends JpaRepository<TwoFactorOTP, String> {
 
+    TwoFactorOTP findByUserId(Long userId);
 }

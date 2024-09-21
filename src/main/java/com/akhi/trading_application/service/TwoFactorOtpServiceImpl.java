@@ -1,38 +1,58 @@
 package com.akhi.trading_application.service;
 
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.akhi.trading_application.modal.TwoFactorOTP;
 import com.akhi.trading_application.modal.User;
+import com.akhi.trading_application.repository.TwoFactorOtpRepository;
 
+
+@Service
 public class TwoFactorOtpServiceImpl implements TwoFactorOTPService{
 
+
+    @Autowired
+    private TwoFactorOtpRepository twoFactorOtpRepository;
     @Override
     public TwoFactorOTP createTwoFactorOTP(User user, String otp, String jwt) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createTwoFactorOTP'");
+        UUID uuid=UUID.randomUUID();
+        String id=uuid.toString();
+
+        TwoFactorOTP twoFactorOTP=new TwoFactorOTP();
+        twoFactorOTP.setId(id);
+        twoFactorOTP.setJwt(jwt);
+        twoFactorOTP.setOtp(otp);
+        twoFactorOTP.setUser(user);
+
+        
+        return twoFactorOtpRepository.save(twoFactorOTP);
     }
 
     @Override
     public TwoFactorOTP findByUser(Long userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByUser'");
+        
+        return twoFactorOtpRepository.findByUserId(userId);
     }
 
     @Override
     public TwoFactorOTP findById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        Optional<TwoFactorOTP> opt = twoFactorOtpRepository.findById(id);
+        return opt.orElse(null);
     }
 
     @Override
     public boolean verifyTwoFactorOtp(TwoFactorOTP twoFactorOTP, String otp) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'verifyTwoFactorOtp'");
+
+        return twoFactorOTP.getOtp().equals(otp);
     }
 
     @Override
     public void deleteTwoFactorOTP(TwoFactorOTP twoFactorOTP) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteTwoFactorOTP'");
+        twoFactorOtpRepository.delete(twoFactorOTP);
     }
 
 }
