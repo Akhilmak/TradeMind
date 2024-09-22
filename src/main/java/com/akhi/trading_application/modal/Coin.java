@@ -34,8 +34,8 @@ public class Coin {
     @JsonProperty("market_cap_rank")
     private int marketCapRank;
 
-    @JsonProperty("fully_diluted_valuation")
-    private long fullyDilutedValuation;
+    // @JsonProperty("fully_diluted_valuation")
+    // private long fullyDilutedValuation;
 
     @JsonProperty("total_volume")
     private long totalVolume;
@@ -58,8 +58,8 @@ public class Coin {
     @JsonProperty("market_cap_change_percentage_24h")
     private double marketCapChangePercentage24h;
 
-    @JsonProperty("circulating_supply")
-    private double circulatingSupply;
+    // @JsonProperty("circulating_supply")
+    // private double circulatingSupply;
 
     @JsonProperty("total_supply")
     private double totalSupply;
@@ -67,30 +67,30 @@ public class Coin {
     @JsonProperty("max_supply")
     private double maxSupply;
 
-    @JsonProperty("ath")
-    private double ath;
+    // @JsonProperty("ath")
+    // private double ath;
 
-    @JsonProperty("ath_change_percentage")
-    private double athChangePercentage;
+    // @JsonProperty("ath_change_percentage")
+    // private double athChangePercentage;
 
-    @JsonProperty("ath_date")
-    private Date athDate;
+    // @JsonProperty("ath_date")
+    // private Date athDate;
 
-    @JsonProperty("atl")
-    private double atl;
+    // @JsonProperty("atl")
+    // private double atl;
 
-    @JsonProperty("atl_change_percentage")
-    private double atlChangePercentage;
+    // @JsonProperty("atl_change_percentage")
+    // private double atlChangePercentage;
 
-    @JsonProperty("atl_date")
-    private Date atlDate;
+    // @JsonProperty("atl_date")
+    // private Date atlDate;
 
 
-    @JsonProperty("roi")
-    @JsonIgnore
-    private Object roi; // Adjust if necessary
+    // @JsonProperty("roi")
+    // @JsonIgnore
+    // private Object roi; // Adjust if necessary
 
-    @JsonProperty("last_updated")
-    private Date lastUpdated;
+    // @JsonProperty("last_updated")
+    // private Date lastUpdated;
 
 }
