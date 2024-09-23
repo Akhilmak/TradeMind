@@ -1,4 +1,4 @@
-package com.akhi.trading_application.service;
+package com.akhi.trading_application.implementation;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,16 +8,20 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.akhi.trading_application.modal.Coin;
 import com.akhi.trading_application.repository.CoinRepository;
+import com.akhi.trading_application.service.CoinService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
+@Service
 public class CoinServiceImpl implements CoinService{
 
 

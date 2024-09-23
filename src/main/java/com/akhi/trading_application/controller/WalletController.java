@@ -1,0 +1,71 @@
+package com.akhi.trading_application.controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.akhi.trading_application.modal.Order;
+import com.akhi.trading_application.modal.User;
+import com.akhi.trading_application.modal.Wallet;
+import com.akhi.trading_application.modal.WalletTransaction;
+import com.akhi.trading_application.service.UserService;
+import com.akhi.trading_application.service.WalletService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+
+
+@RestController
+@RequestMapping("/api/wallet")
+public class WalletController {
+    @Autowired
+    private WalletService walletService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private OrderService orderService;;
+
+    @GetMapping("/api/wallet")
+    public String getMethodName(@RequestParam String param) {
+        return new String();
+    }
+    
+    ResponseEntity<Wallet> getWallet(@RequestHeader("Authorization") String jwt)throws Exception{
+        User user=userService.findUserByJwt(jwt);
+
+        Wallet wallet=walletService.getUserWallet(user);
+        return new ResponseEntity<>(wallet,HttpStatus.OK);
+
+    }
+
+
+    @PutMapping("api/wallet/{walletId}/transefer")
+    ResponseEntity<Wallet> walletToWalletTransaction(@RequestHeader("Authorization") String jwt, @PathVariable Long walletId,@RequestBody WalletTransaction transaction)throws Exception{
+        
+        User senderUser=userService.findUserByJwt(jwt);
+        Wallet receiverWallet=walletService.findById(walletId);
+        Wallet wallet=walletService.walletToWalletTransfer(senderUser,receiverWallet,transaction.getAmount());
+        return new ResponseEntity<>(wallet,HttpStatus.OK);
+    }
+
+    @PutMapping("api/wallet/order/{orderId}/pay")
+    ResponseEntity<Wallet> payOrderPayment(@RequestHeader("Authorization") String jwt, @PathVariable Long orderId)throws Exception{
+        
+        User user=userService.findUserByJwt(jwt);
+
+        Order order=orderService.getOrderById(orderId);
+
+        Wallet wallet=walletService.payOrderPayment(order,user);
+        return new ResponseEntity<>(wallet,HttpStatus.OK);
+    }
+
+}

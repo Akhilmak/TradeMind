@@ -1,14 +1,17 @@
-package com.akhi.trading_application.service;
+package com.akhi.trading_application.implementation;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.akhi.trading_application.domain.VerificationType;
 import com.akhi.trading_application.modal.ForgotPasswordToken;
 import com.akhi.trading_application.modal.User;
 import com.akhi.trading_application.repository.ForgotPasswordRepository;
+import com.akhi.trading_application.service.ForgotPasswordService;
 
+@Service
 public class ForgotPasswordImpl  implements ForgotPasswordService{
 
     @Autowired

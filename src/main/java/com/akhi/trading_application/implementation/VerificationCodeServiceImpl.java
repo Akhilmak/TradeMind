@@ -1,4 +1,4 @@
-package com.akhi.trading_application.service;
+package com.akhi.trading_application.implementation;
 
 import java.util.Optional;
 
@@ -9,6 +9,7 @@ import com.akhi.trading_application.domain.VerificationType;
 import com.akhi.trading_application.modal.User;
 import com.akhi.trading_application.modal.VerificationCode;
 import com.akhi.trading_application.repository.VerificationCodeRepository;
+import com.akhi.trading_application.service.VerificationCodeService;
 import com.akhi.trading_application.utils.OtpUtils;
 
 

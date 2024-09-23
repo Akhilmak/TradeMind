@@ -3,6 +3,7 @@ package com.akhi.trading_application.service;
 import java.util.List;
 
 import com.akhi.trading_application.modal.Coin;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface CoinService {
 

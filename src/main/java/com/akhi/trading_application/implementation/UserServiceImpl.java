@@ -1,4 +1,4 @@
-package com.akhi.trading_application.service;
+package com.akhi.trading_application.implementation;
 
 import java.util.Optional;
 
@@ -10,7 +10,7 @@ import com.akhi.trading_application.domain.VerificationType;
 import com.akhi.trading_application.modal.TwoFactorAuth;
 import com.akhi.trading_application.modal.User;
 import com.akhi.trading_application.repository.UserRepository;
-
+import com.akhi.trading_application.service.UserService;
 
 import io.jsonwebtoken.Jwt;
 
