@@ -10,12 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.akhi.trading_application.domain.OrderStatus;
 import com.akhi.trading_application.domain.OrderType;
+import com.akhi.trading_application.modal.Asset;
 import com.akhi.trading_application.modal.Coin;
 import com.akhi.trading_application.modal.Order;
 import com.akhi.trading_application.modal.OrderItem;
 import com.akhi.trading_application.modal.User;
 import com.akhi.trading_application.repository.OrderItemRepository;
 import com.akhi.trading_application.repository.OrderRepository;
+import com.akhi.trading_application.service.AssetService;
 import com.akhi.trading_application.service.OrderService;
 import com.akhi.trading_application.service.WalletService;
 
@@ -30,6 +32,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private OrderItemRepository orderItemRepository;
+
+    @Autowired
+    private AssetService assetService;
     @Override
     public Order createOrder(User user, OrderItem orderItem, OrderType orderType) {
 
@@ -78,7 +83,15 @@ public class OrderServiceImpl implements OrderService{
 
         //create an Asset
 
-        return order;
+        Asset oldAsset=assetService.findAssetByUserIdAndCoinId(order.getUser().getId(), order.getOrderItem().getCoin().getId());
+
+        if(oldAsset==null){
+            assetService.createAsset(user, orderItem.getCoin(), orderItem.getQuantity());
+        }else{
+            assetService.updateAsset(oldAsset.getId(), quantity);
+        }
+
+        return savedOrder;
     }
 
     @Transactional
@@ -88,25 +101,44 @@ public class OrderServiceImpl implements OrderService{
         }
 
         double sellPrice=coin.getCurrentPrice();
-        double buyPrice=assetToSell.getPrice();
 
+        Asset assetToSell=assetService.findAssetByUserIdAndCoinId(user.getId(), coin.getId());
+        double buyPrice=assetToSell.getBuyPrice();
+        if(assetToSell!=null){
         OrderItem orderItem=creatOrderItem(coin,quantity,sellPrice,buyPrice);
         Order order=createOrder(user, orderItem, OrderType.SELL);
         orderItem.setOrder(order);
-        walletService.payOrderPayment(order, user);
-        order.setStatus(OrderStatus.SUCCESS);
-        order.setOrderType(OrderType.BUY);
-        Order savedOrder=orderRepository.save(order);
+        if(assetToSell.getQuantity()>=quantity){
+            order.setStatus(OrderStatus.SUCCESS);
+            order.setOrderType(OrderType.SELL);
+            Order savedOrder=orderRepository.save(order);
+             walletService.payOrderPayment(order, user);
 
-        //create an Asset
+             Asset updatedAsset=assetService.updateAsset(assetToSell.getId(),-quantity);
 
-        return order;
+             if(updatedAsset.getQuantity()*coin.getCurrentPrice()<=1){
+                assetService.deleteAsset(updatedAsset.getId());
+             }
+             return savedOrder; 
+        }
+        throw new Exception("Insufficient Quantity to Sell....!");
     }
+    // throw new Exception("Asset not found");
+        
+}
 
+
+    
     @Override
-    public Order processOrder(Coin coin, double quantity, OrderType orderType, User user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'processOrder'");
+    @Transactional
+    public Order processOrder(Coin coin, double quantity, OrderType orderType, User user) throws Exception{
+
+        if(orderType==OrderType.BUY){
+            return buyAsset(coin,quantity,user);
+        }else if(orderType==OrderType.SELL){
+            return sellAsset(coin,quantity,user);
+        }
+        throw new Exception("Invalid Order Type");
     }
 
     @Override

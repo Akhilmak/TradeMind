@@ -10,12 +10,12 @@ import com.akhi.trading_application.modal.User;
 
 public interface OrderService {
 
-    Order createOrder(User user, OrderItem orderItem,OrderType orderType);
+    Order createOrder(User user, OrderItem orderItem,OrderType orderType) throws Exception;
 
-    Order getOrderById(Long OrderId);
+    Order getOrderById(Long OrderId) throws Exception;
 
-    List<Order> getAllOrders(Long userId,OrderType orderType,String assetSymbol);
+    List<Order> getAllOrders(Long userId,OrderType orderType,String assetSymbol) throws Exception;
 
-    Order processOrder(Coin coin,double quantity,OrderType orderType, User user); 
+    Order processOrder(Coin coin,double quantity,OrderType orderType, User user) throws Exception; 
 
 }
