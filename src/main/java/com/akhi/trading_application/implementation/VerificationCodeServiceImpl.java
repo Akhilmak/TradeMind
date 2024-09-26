@@ -31,9 +31,9 @@ public class VerificationCodeServiceImpl implements VerificationCodeService{
     }
 
     @Override
-    public VerificationCode getVerificationCodeByUser(Long UserId) {
+    public VerificationCode getVerificationCodeByUser(Long userId) {
 
-        return verificationCodeRepository.findByUserId(id);
+        return verificationCodeRepository.findByUserId(userId);
     }
 
     @Override
@@ -49,8 +49,4 @@ public class VerificationCodeServiceImpl implements VerificationCodeService{
         code.setUser(user);
         return verificationCodeRepository.save(code);
     }
-
-    
-
-
 }

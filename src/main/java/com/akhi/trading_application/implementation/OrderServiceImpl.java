@@ -22,7 +22,7 @@ import com.akhi.trading_application.service.OrderService;
 import com.akhi.trading_application.service.WalletService;
 
 @Service
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
@@ -35,11 +35,12 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private AssetService assetService;
+
     @Override
     public Order createOrder(User user, OrderItem orderItem, OrderType orderType) {
 
-        double price=orderItem.getCoin().getCurrentPrice()*orderItem.getQuantity();
-        Order order=new Order();
+        double price = orderItem.getCoin().getCurrentPrice() * orderItem.getQuantity();
+        Order order = new Order();
         order.setOrderItem(orderItem);
         order.setOrderType(orderType);
         order.setPrice(BigDecimal.valueOf(price));
@@ -48,46 +49,47 @@ public class OrderServiceImpl implements OrderService{
 
         return orderRepository.save(order);
 
-
     }
 
     @Override
-    public Order getOrderById(Long OrderId) throws Exception{
-        return orderRepository.findById(OrderId).orElseThrow(()->new Exception("Order not found"));
+    public Order getOrderById(Long OrderId) throws Exception {
+        return orderRepository.findById(OrderId).orElseThrow(() -> new Exception("Order not found"));
     }
-    private OrderItem creatOrderItem(Coin coin,double quantity,double buyPrice,double sellPrice){
 
-        OrderItem orderItem=new OrderItem();
+    private OrderItem creatOrderItem(Coin coin, double quantity, double buyPrice, double sellPrice) {
+
+        OrderItem orderItem = new OrderItem();
         orderItem.setCoin(coin);
         orderItem.setQuantity(quantity);
         orderItem.setBuyPrice(buyPrice);
         orderItem.setSellPrice(sellPrice);
-        return orderItemRepository.save(orderItem); 
+        return orderItemRepository.save(orderItem);
     }
 
     @Transactional
-    public Order buyAsset(Coin coin,double quantity,User user) throws Exception{
-        if(quantity<=0){
+    public Order buyAsset(Coin coin, double quantity, User user) throws Exception {
+        if (quantity <= 0) {
             throw new Exception("Quantity Should be greater than 0");
         }
 
-        double buyPrice=coin.getCurrentPrice();
+        double buyPrice = coin.getCurrentPrice();
 
-        OrderItem orderItem=creatOrderItem(coin,quantity,buyPrice,0);
-        Order order=createOrder(user, orderItem, OrderType.BUY);
+        OrderItem orderItem = creatOrderItem(coin, quantity, buyPrice, 0);
+        Order order = createOrder(user, orderItem, OrderType.BUY);
         orderItem.setOrder(order);
         walletService.payOrderPayment(order, user);
         order.setStatus(OrderStatus.SUCCESS);
         order.setOrderType(OrderType.BUY);
-        Order savedOrder=orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
 
-        //create an Asset
+        // create an Asset
 
-        Asset oldAsset=assetService.findAssetByUserIdAndCoinId(order.getUser().getId(), order.getOrderItem().getCoin().getId());
+        Asset oldAsset = assetService.findAssetByUserIdAndCoinId(order.getUser().getId(),
+                order.getOrderItem().getCoin().getId());
 
-        if(oldAsset==null){
+        if (oldAsset == null) {
             assetService.createAsset(user, orderItem.getCoin(), orderItem.getQuantity());
-        }else{
+        } else {
             assetService.updateAsset(oldAsset.getId(), quantity);
         }
 
@@ -95,48 +97,43 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Transactional
-    public Order sellAsset(Coin coin,double quantity,User user) throws Exception{
-        if(quantity<=0){
+    public Order sellAsset(Coin coin, double quantity, User user) throws Exception {
+        if (quantity <= 0) {
             throw new Exception("Quantity Should be greater than 0");
         }
 
-        double sellPrice=coin.getCurrentPrice();
+        double sellPrice = coin.getCurrentPrice();
 
-        Asset assetToSell=assetService.findAssetByUserIdAndCoinId(user.getId(), coin.getId());
-        double buyPrice=assetToSell.getBuyPrice();
-        if(assetToSell!=null){
-        OrderItem orderItem=creatOrderItem(coin,quantity,sellPrice,buyPrice);
-        Order order=createOrder(user, orderItem, OrderType.SELL);
-        orderItem.setOrder(order);
-        if(assetToSell.getQuantity()>=quantity){
-            order.setStatus(OrderStatus.SUCCESS);
-            order.setOrderType(OrderType.SELL);
-            Order savedOrder=orderRepository.save(order);
-             walletService.payOrderPayment(order, user);
-
-             Asset updatedAsset=assetService.updateAsset(assetToSell.getId(),-quantity);
-
-             if(updatedAsset.getQuantity()*coin.getCurrentPrice()<=1){
-                assetService.deleteAsset(updatedAsset.getId());
-             }
-             return savedOrder; 
+        Asset assetToSell = assetService.findAssetByUserIdAndCoinId(user.getId(), coin.getId());
+        double buyPrice = assetToSell.getBuyPrice();
+        if (assetToSell != null) {
+            OrderItem orderItem = creatOrderItem(coin, quantity, sellPrice, buyPrice);
+            Order order = createOrder(user, orderItem, OrderType.SELL);
+            orderItem.setOrder(order);
+            if (assetToSell.getQuantity() >= quantity) {
+                order.setStatus(OrderStatus.SUCCESS);
+                order.setOrderType(OrderType.SELL);
+                Order savedOrder = orderRepository.save(order);
+                walletService.payOrderPayment(order, user);
+                Asset updatedAsset = assetService.updateAsset(assetToSell.getId(), -quantity);
+                if (updatedAsset.getQuantity() * coin.getCurrentPrice() <= 1) {
+                    assetService.deleteAsset(updatedAsset.getId());
+                }
+                return savedOrder;
+            }
+            throw new Exception("Insufficient balance");
         }
-        throw new Exception("Insufficient Quantity to Sell....!");
+        throw new Exception("Asset not found");
     }
-    // throw new Exception("Asset not found");
-        
-}
 
-
-    
     @Override
     @Transactional
-    public Order processOrder(Coin coin, double quantity, OrderType orderType, User user) throws Exception{
+    public Order processOrder(Coin coin, double quantity, OrderType orderType, User user) throws Exception {
 
-        if(orderType==OrderType.BUY){
-            return buyAsset(coin,quantity,user);
-        }else if(orderType==OrderType.SELL){
-            return sellAsset(coin,quantity,user);
+        if (orderType == OrderType.BUY) {
+            return buyAsset(coin, quantity, user);
+        } else if (orderType == OrderType.SELL) {
+            return sellAsset(coin, quantity, user);
         }
         throw new Exception("Invalid Order Type");
     }
@@ -145,6 +142,5 @@ public class OrderServiceImpl implements OrderService{
     public List<Order> getAllOrders(Long userId, OrderType orderType, String assetSymbol) {
         return orderRepository.findByUserId(userId);
     }
-
 
 }

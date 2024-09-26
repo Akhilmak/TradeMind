@@ -12,7 +12,7 @@ import com.akhi.trading_application.modal.User;
 import com.akhi.trading_application.repository.UserRepository;
 import com.akhi.trading_application.service.UserService;
 
-import io.jsonwebtoken.Jwt;
+// import io.jsonwebtoken.Jwt;
 
 @RestController
 public class UserServiceImpl implements UserService{

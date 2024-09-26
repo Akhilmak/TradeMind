@@ -7,8 +7,8 @@ import com.akhi.trading_application.modal.Wallet;
 public interface WalletService {
     Wallet getUserWallet(User user);
     Wallet addBalance(Wallet wallet, Long amount);
-    Wallet findById(Long id);
-    Wallet walletToWalletTransfer(User sender, Wallet receipentWallet, Long amount);
-    Wallet payOrderPayment(Order order,User user);
+    Wallet findById(Long id) throws Exception;
+    Wallet walletToWalletTransfer(User sender, Wallet receipentWallet, Long amount) throws Exception;
+    Wallet payOrderPayment(Order order,User user)throws Exception;
 
 }

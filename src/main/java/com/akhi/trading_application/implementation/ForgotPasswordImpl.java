@@ -47,5 +47,6 @@ public class ForgotPasswordImpl  implements ForgotPasswordService{
         
         forgotPasswordRepository.delete(token);
     }
+}
 
 

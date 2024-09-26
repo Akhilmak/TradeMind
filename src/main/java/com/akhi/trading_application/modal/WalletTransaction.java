@@ -2,6 +2,8 @@ package com.akhi.trading_application.modal;
 
 import java.time.LocalDate;
 
+import com.akhi.trading_application.domain.WalletTransactionType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

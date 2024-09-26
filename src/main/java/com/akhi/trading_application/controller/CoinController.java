@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.akhi.trading_application.modal.Coin;
 import com.akhi.trading_application.service.CoinService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+// import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.GetMapping;

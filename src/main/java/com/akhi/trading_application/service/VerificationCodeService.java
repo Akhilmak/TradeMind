@@ -6,13 +6,11 @@ import com.akhi.trading_application.modal.VerificationCode;
 
 public interface VerificationCodeService {
 
-    VerificationCode sendVerificationCode(User user,VerificationType verificationType);
+    VerificationCode sendVerificationCode(User user, VerificationType verificationType);
 
     VerificationCode getVerificationCodeById(Long id) throws Exception;
 
-    VerificationCode getVerificationCodeByUser(Long UserId);
-
-    
+    VerificationCode getVerificationCodeByUser(Long userId);
 
     void deleteVerificationCodeById(VerificationCode code);
 }
