@@ -1,0 +1,85 @@
+package com.akhi.trading_application.implementation;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.akhi.trading_application.domain.PaymentMethod;
+import com.akhi.trading_application.domain.PaymentStatus;
+import com.akhi.trading_application.modal.PaymentOrder;
+import com.akhi.trading_application.modal.User;
+import com.akhi.trading_application.repository.PaymentDetailsRepository;
+import com.akhi.trading_application.repository.PaymentRepository;
+import com.akhi.trading_application.response.PaymentResponse;
+import com.akhi.trading_application.service.PaymentService;
+import com.razorpay.Payment;
+import com.razorpay.RazorpayClient;
+
+
+@Service
+public class PaymentServiceImpl implements PaymentService{
+
+
+    @Autowired
+    private PaymentRepository paymentRepository;
+
+    @Value("${stripe.api.key}")
+    private String stripeSecretKey;
+
+    @Value("${razorpay.api.key}")
+    private String apiKey;
+
+    @Value("${razorpay.api.secret}")
+    private String apiSecretKey;
+
+    @Override
+    public PaymentOrder createOrder(User user, Long amount, PaymentMethod paymentMethod) {
+        PaymentOrder payment=new PaymentOrder();
+        payment.setUser(user);
+        payment.setAmount(amount);
+        payment.setPaymentMethod(paymentMethod);
+        return paymentRepository.save(payment);
+    }
+
+    @Override
+    public PaymentOrder getPaymentOrderById(Long id) throws Exception{
+        return paymentRepository.findById(id).orElseThrow(()->new Exception("Payment Order not found...!"));
+    }
+
+    @Override
+    public Boolean proceedPaymentOrder(PaymentOrder paymentOrder, String paymentId) throws Exception{
+        if(paymentOrder.getStatus().equals(PaymentStatus.PENDING)){
+            if(paymentOrder.getPaymentMethod().equals(PaymentMethod.RAZORPAY)){
+                RazorpayClient razorPay=new RazorpayClient(apiKey, apiSecretKey);
+                Payment payment=razorPay.payments.fetch(paymentId);
+                Integer amount=payment.get("amount");
+                String status=payment.get("status");
+                if(status.equals("captured")){
+                    paymentOrder.setStatus(PaymentStatus.SUCCESS);
+                    paymentRepository.save(paymentOrder);
+                    return true;
+                }
+                paymentOrder.setStatus(PaymentStatus.FAILED);
+                paymentRepository.save(paymentOrder);
+                return false;
+            }
+            paymentOrder.setStatus(PaymentStatus.SUCCESS);
+            paymentRepository.save(paymentOrder);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public PaymentResponse createRazorpayPaymentLink(User user, Long amount) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createRazorpayPaymentLink'");
+    }
+
+    @Override
+    public PaymentResponse createStripePaymentLink(User user, Long amount, Long orderId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createStripePaymentLink'");
+    }
+
+}
