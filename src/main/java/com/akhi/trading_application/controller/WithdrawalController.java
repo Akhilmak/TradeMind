@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.akhi.trading_application.modal.User;
 import com.akhi.trading_application.modal.Wallet;
+import com.akhi.trading_application.modal.WalletTransaction;
 import com.akhi.trading_application.modal.Withdrawal;
 import com.akhi.trading_application.service.UserService;
 import com.akhi.trading_application.service.WalletService;
@@ -32,6 +33,8 @@ public class WithdrawalController {
     private WalletService walletService;
     @Autowired
     private UserService userService;
+    // @Autowired
+    // private TransactionSe
 
 
     @PostMapping("/api/withdrawal/{amount}")
@@ -40,6 +43,8 @@ public class WithdrawalController {
         Wallet userWallet=walletService.getUserWallet(user);
         Withdrawal withdrawal=withdrawalService.requestWithdrawal(amount, user);
         walletService.addBalance(userWallet, -withdrawal.getAmount());
+
+        // WalletTransaction walletTransaction=walletTransactionService.createTransaction(userWallet,);
         
         return new ResponseEntity<>(withdrawal,HttpStatus.OK);
     }

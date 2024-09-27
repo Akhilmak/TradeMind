@@ -94,7 +94,7 @@ public class CoinServiceImpl implements CoinService{
             coin.setId(jsonNode.get("id").asText());
             coin.setName(jsonNode.get("name").asText());
             coin.setSymbol(jsonNode.get("symbol").asText());
-            coin.setImage(jsonNode.get("iamge").get("large").asText()); //the image field has three fields sm, med, lar with links to images
+            coin.setImage(jsonNode.get("image").get("large").asText()); //the image field has three fields sm, med, lar with links to images
 
             JsonNode market_data=jsonNode.get("market_data");
 
@@ -103,7 +103,7 @@ public class CoinServiceImpl implements CoinService{
             coin.setMarketCapRank(market_data.get("market_cap_rank").asInt());
             coin.setTotalVolume(market_data.get("total_volume").get("usd").asLong());
             coin.setHigh24h(market_data.get("high_24h").get("usd").asDouble());
-            coin.setLow24h(market_data.get(url).get("low_24h").get("usd").asDouble());
+            coin.setLow24h(market_data.get("low_24h").asDouble());
             coin.setPriceChange24h(market_data.get("price_change_24h").asDouble());
             coin.setPriceChangePercentage24h(market_data.get("price_change_percentage_24h").asDouble());
             coin.setMarketCapChange24h(market_data.get("market_cap_change_24h").asLong());
@@ -123,7 +123,7 @@ public class CoinServiceImpl implements CoinService{
     public Coin findById(String coinId) throws Exception{
 
         Optional<Coin> optionalCoin=coinRepository.findById(coinId);
-        if(optionalCoin.isEmpty()) throw new Exception("Coinnot Found....!");
+        if(optionalCoin.isEmpty()) throw new Exception("Coin not Found....!");
         return optionalCoin.get();
 
     }
@@ -171,8 +171,8 @@ public class CoinServiceImpl implements CoinService{
     }
 
     @Override
-    public String getTradingCoins() throws Exception{
-        String url="https://api.coingecko.com/api/v3/coins/search/trading";
+    public String getTrendingCoins() throws Exception{
+        String url="https://api.coingecko.com/api/v3/search/trending";
 
         RestTemplate restTemplate=new RestTemplate();
 

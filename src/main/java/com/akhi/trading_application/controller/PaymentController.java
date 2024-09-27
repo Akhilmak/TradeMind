@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 
 @RestController
-@RequestMapping("/api")
 public class PaymentController {
 
     @Autowired
@@ -35,7 +34,7 @@ public class PaymentController {
         PaymentResponse response;
         PaymentOrder order=paymentService.createOrder(user, amount, paymentMethod);
         if(paymentMethod.equals(PaymentMethod.RAZORPAY)){
-            response=paymentService.createRazorpayPaymentLink(user, amount);
+            response=paymentService.createRazorpayPaymentLink(user, amount,order.getId());
         }else{
             response=paymentService.createStripePaymentLink(user, amount, order.getId());
         }

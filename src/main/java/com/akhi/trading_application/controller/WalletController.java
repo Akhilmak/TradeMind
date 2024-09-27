@@ -1,6 +1,8 @@
 package com.akhi.trading_application.controller;
 
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,7 @@ import com.akhi.trading_application.modal.PaymentOrder;
 import com.akhi.trading_application.modal.User;
 import com.akhi.trading_application.modal.Wallet;
 import com.akhi.trading_application.modal.WalletTransaction;
-import com.akhi.trading_application.response.PaymentResponse;
+// import com.akhi.trading_application.response.PaymentResponse;
 import com.akhi.trading_application.service.OrderService;
 import com.akhi.trading_application.service.PaymentService;
 import com.akhi.trading_application.service.UserService;
@@ -27,7 +29,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping("/api/wallet")
 public class WalletController {
     @Autowired
     private WalletService walletService;
@@ -42,16 +43,10 @@ public class WalletController {
     private PaymentService paymentService;
 
     @GetMapping("/api/wallet")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
-    }
-    
     ResponseEntity<Wallet> getWallet(@RequestHeader("Authorization") String jwt)throws Exception{
         User user=userService.findUserByJwt(jwt);
-
         Wallet wallet=walletService.getUserWallet(user);
         return new ResponseEntity<>(wallet,HttpStatus.OK);
-
     }
 
 
@@ -83,6 +78,9 @@ public class WalletController {
 
         PaymentOrder order=paymentService.getPaymentOrderById(orderId);
         Boolean status=paymentService.proceedPaymentOrder(order, payment_id);
+        if(wallet.getBalance()==null){
+            wallet.setBalance(BigDecimal.valueOf(0));
+        }
         if(status){
             wallet=walletService.addBalance(wallet,order.getAmount());
         }

@@ -11,8 +11,8 @@ public interface PaymentService {
 
     Boolean proceedPaymentOrder(PaymentOrder paymentOrder,String paymentId)throws Exception;
 
-    PaymentResponse createRazorpayPaymentLink(User user,Long amount) throws Exception;
+    PaymentResponse createRazorpayPaymentLink(User user,Long amount, Long orderId) throws Exception;
 
-    PaymentResponse createStripePaymentLink(User user,Long amount, Long orderId);
+    PaymentResponse createStripePaymentLink(User user,Long amount, Long orderId) throws Exception;
 
 }

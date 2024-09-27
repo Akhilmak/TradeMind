@@ -21,6 +21,7 @@ import com.akhi.trading_application.response.AuthResponse;
 import com.akhi.trading_application.service.CustomUserDetailsService;
 import com.akhi.trading_application.service.EmailService;
 import com.akhi.trading_application.service.TwoFactorOTPService;
+import com.akhi.trading_application.service.WatchListService;
 import com.akhi.trading_application.utils.OtpUtils;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,9 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private WatchListService watchListService;
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -58,6 +62,8 @@ public class AuthController {
         newUser.setFullName(user.getFullName());
 
         User savedUser = userRepository.save(newUser);
+
+        watchListService.createWatchList(savedUser);
 
         Authentication auth = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);

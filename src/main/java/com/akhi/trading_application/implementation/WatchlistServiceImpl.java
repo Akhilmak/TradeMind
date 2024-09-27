@@ -21,7 +21,7 @@ public class WatchlistServiceImpl implements WatchListService{
     public WatchList findUserWatchList(Long userId) throws Exception{
         WatchList watchList=watchlistRepository.findByUserId(userId);
         if(watchList==null){
-            throw new Exception("WatchList not found....");;
+            throw new Exception("WatchList not found....");
         }
         return watchList;
     }
@@ -45,10 +45,10 @@ public class WatchlistServiceImpl implements WatchListService{
     @Override
     public Coin addCoinToWatchList(Coin coin, User user) throws Exception{
         WatchList watchList=findUserWatchList(user.getId());
-        if(watchList.getCoins().contains(coin)){
-            watchList.getCoins().remove(coin);
-        }else{
+        if(!watchList.getCoins().contains(coin)){
             watchList.getCoins().add(coin);
+        }else{
+            watchList.getCoins().remove(coin);
         }
         watchlistRepository.save(watchList);
         return coin;

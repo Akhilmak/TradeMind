@@ -42,6 +42,7 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setUser(user);
         payment.setAmount(amount);
         payment.setPaymentMethod(paymentMethod);
+        payment.setStatus(PaymentStatus.PENDING);
         return paymentRepository.save(payment);
     }
 
@@ -52,6 +53,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Boolean proceedPaymentOrder(PaymentOrder paymentOrder, String paymentId) throws Exception {
+        if(paymentOrder.getStatus()==null){
+            paymentOrder.setStatus(PaymentStatus.PENDING);
+        }
         if (paymentOrder.getStatus().equals(PaymentStatus.PENDING)) {
             if (paymentOrder.getPaymentMethod().equals(PaymentMethod.RAZORPAY)) {
                 RazorpayClient razorPay = new RazorpayClient(apiKey, apiSecretKey);
@@ -75,7 +79,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public PaymentResponse createRazorpayPaymentLink(User user, Long amount) throws Exception {
+    public PaymentResponse createRazorpayPaymentLink(User user, Long amount, Long orderId) throws Exception {
         amount = amount * 100; // amount should be in cents
         try {
             // Instatiaze RazorPay Client with apiKey and Api Secret Key
@@ -106,7 +110,7 @@ public class PaymentServiceImpl implements PaymentService {
 
             // Call-Back Url ie:after successfull payment user will be called back to this
             // url
-            paymentLinkRequest.put("callback_url", "https://localhost:8080/wallet");
+            paymentLinkRequest.put("callback_url", "https://localhost:8080/wallet?orderId="+orderId);
             paymentLinkRequest.put("callback_method", "get");
 
             PaymentLink payment = razorPay.paymentLink.create(paymentLinkRequest); // creats short url for payment
@@ -125,13 +129,13 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public PaymentResponse createStripePaymentLink(User user, Long amount, Long orderId) {
+    public PaymentResponse createStripePaymentLink(User user, Long amount, Long orderId) throws Exception{
         Stripe.apiKey=stripeSecretKey;
         SessionCreateParams params=new SessionCreateParams.Builder()
             .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
             .setMode(SessionCreateParams.Mode.PAYMENT).setSuccessUrl("https://localhost:8080/wallet?orderId="+orderId)
             .setCancelUrl("https://localhost:8080/payment/cancel")
-            .addLineItem(SessionCreateParams.LineItem.builder(
+            .addLineItem(SessionCreateParams.LineItem.builder()
                 .setQuantity(1L)
                 .setPriceData(SessionCreateParams.LineItem.PriceData.builder()
                     .setCurrency("usd")

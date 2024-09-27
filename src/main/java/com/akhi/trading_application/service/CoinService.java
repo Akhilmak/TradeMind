@@ -3,7 +3,6 @@ package com.akhi.trading_application.service;
 import java.util.List;
 
 import com.akhi.trading_application.modal.Coin;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface CoinService {
 
@@ -19,6 +18,6 @@ public interface CoinService {
 
     String getTop50CoinByMarketCapRank() throws Exception ;
 
-    String getTradingCoins() throws Exception;
+    String getTrendingCoins() throws Exception;
 
 }

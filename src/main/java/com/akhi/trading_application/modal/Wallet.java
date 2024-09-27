@@ -21,5 +21,5 @@ public class Wallet {
     private User user;
 
     
-    private BigDecimal balance;
+    private BigDecimal balance=BigDecimal.ZERO;
 }
