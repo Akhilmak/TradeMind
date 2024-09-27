@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "bba4bff0-6ac7-4bb2-9937-ad8189f02c50",
+		"name": "Trading",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "37620251"
+	},
+	"item": [
+		{
+			"name": "User Service",
+			"item": [
+				{
+					"name": "signUp",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\":\"Rahul4\",\r\n    \"email\":\"Rahul12@gmail.com\",\r\n    \"password\":\"12345678\",\r\n    \"mobile\":\"9014658590\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/auth/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "signIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "localhost:8080/auth/signin"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile By JWt",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/api/user/profile"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Coin Service",
+			"item": [
+				{
+					"name": "Get Coins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coins?page=10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coins"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "10",
+									"description": "page parameter is required forthis endPoint"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get coin by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/coins/details/bitcoin"
+					},
+					"response": []
+				},
+				{
+					"name": "Market chart Data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/coins/bittorrent/chart?days=2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"coins",
+								"bittorrent",
+								"chart"
+							],
+							"query": [
+								{
+									"key": "days",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Top 50 Coins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/coins/top50"
+					},
+					"response": []
+				},
+				{
+					"name": "Trending Coins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/coins/trending"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Watchlist Service",
+			"item": [
+				{
+					"name": "Get User Watchlist",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/api/watchlist/user"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Coin to Watchlist",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": "localhost:8080/api/watchlist/add/coin/bittorrent"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wallet Service",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JWT}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/api/wallet"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
