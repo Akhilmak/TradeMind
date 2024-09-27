@@ -23,12 +23,12 @@ This is a trading application Backend built using Spring Boot, Java, and various
 
 ### Project Structure
 
-* `com.trading.application`: the main package for the application
-* `com.trading.application.controller`: package for controllers
-* `com.trading.application.service`: package for services
-* `com.trading.application.repository`: package for repositories
-* `com.trading.application.model`: package for models
-
+* `com.akhi.trading_application`: the main package for the application
+* `com.akhi.trading_application.controller`: package for controllers
+* `com.akhi.trading_application.service`: package for services
+* `com.akhi.trading_application.repository`: package for repositories
+* `com.akhi.trading_application.model`: package for models
+* `com.akhi.trading_application.implementation`: package for Service implementation
 <!-- ### API Documentation
 
 The API documentation is available at [insert link to API documentation]. -->
