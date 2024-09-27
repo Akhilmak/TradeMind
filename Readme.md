@@ -20,6 +20,12 @@ This is a trading application Backend built using Spring Boot, Java, and various
 * `MySQL`: the application uses MySQL as its database management system
 * `Hibernate`: the application uses Hibernate, a popular ORM (Object-Relational Mapping) tool, to interact with the database
 
+### API's Used
+* `CoinGecko` : CoinGecko api is used to obtain the details, market value and Crypto coins data.
+    + The Link for CoinGecko API is `https://api.coingecko.com/api/v3/coins/{coin-name}`
+* `Stripe` : Stripe API is used for International Transactions.
+* `RazorPay` : RazorPay API is used for National Transactions.
+
 
 ### Project Structure
 
