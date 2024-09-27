@@ -1,8 +1,8 @@
 # Backend for Trading Application
-=======================
+
 
 ## Overview
-------------
+
 This is a trading application Backend built using Spring Boot, Java, and various other technologies. The application provides a platform for users to buy and sell cryptocurrencies.
 
 ### Features
@@ -35,9 +35,9 @@ The API documentation is available at [insert link to API documentation]. -->
 
 ### Getting Started
 
-1. Clone the repository: `git clone https://github.com/Akhilmak/Trading-Application.git`
-2. Build the application: `mvn clean package`
-3. Run the application: `java -jar target/trading-application.jar`
+1. #### Clone the repository: `git clone https://github.com/Akhilmak/Trading-Application.git`
+2. #### Build the application: `mvn clean package`
+3. #### Run the application: `java -jar target/trading-application.jar`
 
 ### Contributing
 
@@ -51,7 +51,7 @@ The application is licensed under the [insert license name] license.
 
 The application was built using various open-source libraries and frameworks. I would like to acknowledge the contributions of the following projects:
 
-* Spring Boot
-* Java
-* MySQL
-* Hibernate
+* `Spring Boot`
+* `Java`
+* `MySQL`
+* `Hibernate`
