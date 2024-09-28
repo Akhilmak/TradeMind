@@ -49,9 +49,7 @@ The API documentation is available at [insert link to API documentation]. -->
 
 Contributions are welcome! If you'd like to contribute to the project, please fork the repository and submit a pull request.
 
-### License
 
-The application is licensed under the [insert license name] license.
 
 ### Acknowledgments
 
