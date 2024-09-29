@@ -25,7 +25,7 @@ const AssetTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {[1,1,1,1,1,1,1,1,1,1].map((item,index) =>  <TableRow key={index}>
+        {[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1].map((item,index) =>  <TableRow key={index}>
           <TableCell className="font-medium flex items-center gap-2">
             <Avatar className="-z-50">
               <AvatarImage src="https://cdn.pixabay.com/photo/2017/07/27/23/09/bitcoin-2547131_1280.png"></AvatarImage>
