@@ -14,8 +14,8 @@ const Home = () => {
   };
 
   return (
-    <div className="relative">
-      <div className="lg:flex">
+    <div className="relative " >
+      <div className="lg:flex" >
         <div className="lg:w-[50%] lg:border-r">
           <div className="p-3 flex items-center gap-4">
             <Button
@@ -50,7 +50,7 @@ const Home = () => {
 
           <AssetTable></AssetTable>
         </div>
-        <div className="hidden lg:w-[50%] lg:block p-5">
+        <div className="hidden lg:w-[50%] lg:block p-5  ">
           <StockDataChart />
           <div className="flex gap-5 items-center">
             <div>
@@ -82,16 +82,16 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <section className="absolute bottom-5 left-5 right-5 z-40 flex justify-end  items-end gap-7">
+      <section className="fixed bottom-5 left-5 right-5 z-40 flex flex-col justify-end  items-end gap-2">
 
-<div className="rounded-md w-[20rem] md-[25rem] lg-[30rem] h-[70vh] bg-slate-900 bg-opacity-50 border-white">
+<div className="rounded-md w-[20rem] md-[25rem] lg-[30rem] h-[40vh] bg-slate-900 bg-opacity-50 border-white ">
   <div className="flex justify-between items-center p-3 border-b px-2 h-[12%]">
   <p>ChatBot</p>
   <Button variant="ghost" size="icon">
   <Cross1Icon/>
   </Button>
   </div>
-  <div className="h-[76%] flex flex-col overflow-y-auto gap-5 px-5 py-2 scroll-container">
+  <div className="h-[80%] flex flex-col overflow-y-auto gap-5 px-5 py-2 scroll-container">
     <div className="self-start pb-5 w-auto">
     <div className="justify-end self-end px-5 py-2 w-auto bg-blue-700 rounded-full">
       <p>Hello</p>
@@ -104,7 +104,7 @@ const Home = () => {
 
 
 
-        <div className="relative w-[10rem] cursor-pointer group">
+        <div className="relative w-[10rem] cursor-pointer group ">
           <Button
             variant="ghost"
             className="w-full h-[3rem] gap-2 items-center"
