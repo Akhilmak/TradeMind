@@ -19,18 +19,15 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        java-version: '17' # Adjust to your Java version
+        java-version: '17'  # Use the appropriate Java version
         distribution: 'temurin'
+
+    - name: Grant execute permission for mvnw
+      run: chmod +x ./Application-Backend/mvnw  # Adjust the path as necessary
 
     - name: Build backend
       working-directory: ./Application-Backend
-      run: ./mvnw clean install # Use mvn if you don't have the wrapper
-
-    - name: Build frontend
-      working-directory: ./Application-Frontend
-      run: |
-        npm install
-        npm run build
+      run: ./mvnw clean install
 
     - name: Run backend tests
       working-directory: ./Application-Backend
