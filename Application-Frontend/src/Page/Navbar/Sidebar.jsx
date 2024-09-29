@@ -54,7 +54,7 @@ const Sidebar = () => {
         <div key={item.name}>
           <SheetClose className="w-full ">
             <Button
-              variant="outline"
+              variant="ghost"
               className="flex items-center gap-5 py-6 w-full"
             >
               <span className="w-8">{item.icon}</span>

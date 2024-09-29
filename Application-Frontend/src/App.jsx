@@ -1,5 +1,6 @@
 
 import { Button } from './components/ui/button'
+import Home from './Page/Home/Home'
 import Navbar from './Page/Navbar/Navbar'
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
       
 
       <Navbar />
+      <Home/>
       
     </>
   )

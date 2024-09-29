@@ -8,8 +8,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { DragHandleHorizontalIcon } from "@radix-ui/react-icons";
-import { Avatar } from "@/components/ui/avatar";
+import { DragHandleHorizontalIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import Sidebar from "./Sidebar";
 
@@ -50,6 +50,21 @@ const Navbar = () => {
             <Sidebar/>
           </SheetContent>
         </Sheet>
+        <p className="text-sm lg:text-base cursor-pointer">Trademind</p>
+        <div className="p-0 ml-9">
+          <Button variant="ghost" className="flex items-center gap-3">  
+            <MagnifyingGlassIcon/>
+            <span>Search</span>
+
+          </Button>
+        </div>
+      </div>
+      <div>
+        <Avatar>
+          <AvatarFallback>
+            A
+          </AvatarFallback>
+        </Avatar>
       </div>
     </div>
   );
