@@ -3,7 +3,7 @@ import React from "react";
 import AssetTable from "./AssetTable";
 import StockDataChart from "./StockDataChart";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { DotIcon } from "@radix-ui/react-icons";
+import { Cross1Icon, DotIcon } from "@radix-ui/react-icons";
 import { MessageCircle, MessageCircleQuestion } from "lucide-react";
 
 const Home = () => {
@@ -85,6 +85,20 @@ const Home = () => {
       <section className="absolute bottom-5 left-5 right-5 z-40 flex justify-end  items-end gap-7">
 
 <div className="rounded-md w-[20rem] md-[25rem] lg-[30rem] h-[70vh] bg-slate-900 bg-opacity-50 border-white">
+  <div className="flex justify-between items-center p-3 border-b px-2 h-[12%]">
+  <p>ChatBot</p>
+  <Button variant="ghost" size="icon">
+  <Cross1Icon/>
+  </Button>
+  </div>
+  <div className="h-[76%] flex flex-col overflow-y-auto gap-5 px-5 py-2 scroll-container">
+    <div className="self-start pb-5 w-auto">
+    <div className="justify-end self-end px-5 py-2 w-auto bg-blue-700 rounded-full">
+      <p>Hello</p>
+    </div>
+    </div>
+
+  </div>
 
 </div>
 
