@@ -105,7 +105,13 @@ const StockDataChart = () => {
     },
     xaxis:{
             type:"datetime",
-            tickAmount:6
+            tickAmount:6,
+            // labels:{
+            //   style:{
+            //     colors:["#fff"]
+            //   }
+            // }
+
     },
     markers:{
         colors:["#fff"],
@@ -121,10 +127,10 @@ const StockDataChart = () => {
     fill:{
         type:"gradient",
         gradient:{
-            shadeIntensity:1,
+            shadeIntensity:0.1,
             inverseColors:false,
-            opacityFrom:0.5,
-            opacityTo:0.9,
+            opacityFrom:0.1,
+            opacityTo:0.4,
             stops:[0,100]
         }
     },
@@ -141,7 +147,7 @@ const StockDataChart = () => {
   return (<div>
     <div className="space-x-3">
       {timeSeries.map((item) => (
-        <Button  onClick={() => handleActiveLable(item.lable)} variant={activeLable == item.lable ? "default" : "ghost"} key={item.lable}>{item.lable}</Button>
+        <Button className="rounded-full" onClick={() => handleActiveLable(item.lable)} variant={activeLable == item.lable ? "default" : "ghost"} key={item.lable}>{item.lable}</Button>
       ))}
 
     </div>

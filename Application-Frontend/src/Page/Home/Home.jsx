@@ -4,6 +4,7 @@ import AssetTable from './AssetTable'
 import StockDataChart from './StockDataChart'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { DotIcon } from '@radix-ui/react-icons'
+import { MessageCircle, MessageCircleQuestion } from 'lucide-react'
 
 
 
@@ -38,15 +39,39 @@ const Home = () => {
 
               </Avatar>
             </div>
+            <div>
             <div className='flex items-center gap-2'>
 <p>BTC</p>
-<DotIcon/>
+<DotIcon className='text-gray-400'/>
+<p className='text-gray-400'> Bitcoin</p>
+            </div>
+            <div className='flex items-end gap-2'>
+              <p className='text:xl font-bold'>
+                5454 
+                {/* price */}
+              </p>
+              <p className='text-red-600'>
+                <span>-821368763</span>
+                <span>(-0.38968%)</span>
+              </p>
+
+            </div>
             </div>
 
           </div>
         </div>
         
       </div>
+      <section className='absolute bottom-5 left-5 right-5 z-40 flex justify-end  items-end gap-7'>
+        <div className='relative w-[10rem] cursor-pointer group'>
+          <Button variant="ghost" className="w-full h-[3rem] gap-2 items-center">
+            <MessageCircleQuestion/>
+            <span>Chatbot</span>
+          </Button>
+
+        </div>
+
+      </section>
     </div>
   )
 }
