@@ -11,6 +11,7 @@ import {
 import { CreditCardIcon, IndianRupeeIcon, WalletIcon } from "lucide-react";
 
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const menu = [
   { name: "Home", path: "/", icon: <HomeIcon className="h-6 w-6" /> },
@@ -48,6 +49,8 @@ const menu = [
   { name: "Sign out", path: "/", icon: <ExitIcon className="h-6 w-6" /> },
 ];
 const Sidebar = () => {
+  const navigate=useNavigate();
+  // const handleNavigate=
   return (
     <div className="mt-10 space-y-5 ">
       {menu.map((item) => (
@@ -56,6 +59,7 @@ const Sidebar = () => {
             <Button
               variant="ghost"
               className="flex items-center gap-5 py-6 w-full"
+              onClick={()=>navigate(item.path)}
             >
               <span className="w-8">{item.icon}</span>
               <p>{item.name}</p>

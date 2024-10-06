@@ -14,8 +14,8 @@ const Home = () => {
   };
 
   return (
-    <div className="relative " >
-      <div className="lg:flex" >
+    <div className="relative ">
+      <div className="lg:flex">
         <div className="lg:w-[50%] lg:border-r">
           <div className="p-3 flex items-center gap-4">
             <Button
@@ -82,27 +82,29 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <section className="fixed bottom-5 left-5 right-5 z-40 flex flex-col justify-end  items-end gap-2">
-
-<div className="rounded-md w-[20rem] md-[25rem] lg-[30rem] h-[40vh] bg-slate-900 bg-opacity-50 border-white ">
-  <div className="flex justify-between items-center p-3 border-b px-2 h-[12%]">
-  <p>ChatBot</p>
-  <Button variant="ghost" size="icon">
-  <Cross1Icon/>
-  </Button>
-  </div>
-  <div className="h-[80%] flex flex-col overflow-y-auto gap-5 px-5 py-2 scroll-container">
-    <div className="self-start pb-5 w-auto">
-    <div className="justify-end self-end px-5 py-2 w-auto bg-blue-700 rounded-full">
-      <p>Hello</p>
-    </div>
-    </div>
-
-  </div>
-
-</div>
-
-
+      {/* <section className="fixed bottom-5 left-5 right-5 z-40 flex flex-col justify-end  items-end gap-2">
+        <div className="rounded-md w-[30rem] md-[25rem] lg-[30rem] h-[50vh] bg-slate-900 bg-opacity-50 border-white ">
+          <div className="flex justify-between items-center p-3 border-b px-2 h-[12%]">
+            <p>ChatBot</p>
+            <Button variant="ghost" size="icon">
+              <Cross1Icon />
+            </Button>
+          </div>
+          <div className="h-[76%] flex flex-col overflow-y-auto gap-5 px-5 py-2 scroll-container">
+            <div className="self-start pb-5 w-auto">
+              <div className="justify-end self-end px-5 py-2 w-auto bg-blue-700 rounded-full">
+                <p>Hello User,</p>
+                <p>You can ask any Crypto related Questions here</p>
+              </div>
+            </div>
+            <div className="self-start pb-5 w-auto">
+              <div className="justify-end self-end px-5 py-2 w-auto bg-blue-700 rounded-full">
+                <p>Hello User,</p>
+                <p>You can ask any Crypto related Questions here</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="relative w-[10rem] cursor-pointer group ">
           <Button
@@ -116,7 +118,7 @@ const Home = () => {
             <span className="text-2xl  ">Chatbot</span>
           </Button>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

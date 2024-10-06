@@ -50,9 +50,9 @@ const Navbar = () => {
             <Sidebar/>
           </SheetContent>
         </Sheet>
-        <p className="text-sm lg:text-base cursor-pointer">Trademind</p>
+        <p className="text-3xl font-bold lg:text-base  cursor-pointer">Trademind</p>
         <div className="p-0 ml-9">
-          <Button variant="ghost" className="flex items-center gap-3">  
+          <Button variant="ghost" className="flex items-center gap-3 rounded-full">  
             <MagnifyingGlassIcon/>
             <span>Search</span>
 

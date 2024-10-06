@@ -1,31 +1,28 @@
-
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
-
-const timeSeries=[
+const timeSeries = [
   {
-    keyword:"DIGITAL_CURRENCY_DAILY",
-    key:"Time Series(Daily)",
-    lable:"1 Day",
-    value:1,
+    keyword: "DIGITAL_CURRENCY_DAILY",
+    key: "Time Series(Daily)",
+    lable: "1 Day",
+    value: 1,
   },
   {
-    keyword:"DIGITAL_CURRENCY_WEEKLY",
-    key:"Time Series(Weekly)",
-    lable:"1 Week",
-    value:7,
+    keyword: "DIGITAL_CURRENCY_WEEKLY",
+    key: "Time Series(Weekly)",
+    lable: "1 Week",
+    value: 7,
   },
   {
-    keyword:"DIGITAL_CURRENCY_MONTHLY",
-    key:"Time Series(Monthly)",
-    lable:"1 Month",
-    value:30,
+    keyword: "DIGITAL_CURRENCY_MONTHLY",
+    key: "Time Series(Monthly)",
+    lable: "1 Month",
+    value: 30,
   },
-  
-]
+];
 const StockDataChart = () => {
-  const[activeLable,setActiveLable]=useState("1 Day")
+  const [activeLable, setActiveLable] = useState("1 Day");
   const series = [
     {
       data: [
@@ -91,70 +88,75 @@ const StockDataChart = () => {
       ],
     },
   ];
-  const options={
-    chart:{
-        id:"area-datetime",
-        type:"area",
-        height:"350",
-        zoom:{
-            autoScaleYaxis:true
-        },
+  const options = {
+    chart: {
+      id: "area-datetime",
+      type: "area",
+      height: "350",
+      zoom: {
+        autoScaleYaxis: true,
+      },
     },
-    dataLabels:{
-        enabled:false
+    dataLabels: {
+      enabled: false,
     },
-    xaxis:{
-            type:"datetime",
-            tickAmount:6,
-            // labels:{
-            //   style:{
-            //     colors:["#fff"]
-            //   }
-            // }
-
+    xaxis: {
+      type: "datetime",
+      tickAmount: 6,
+      // labels:{
+      //   style:{
+      //     colors:["#fff"]
+      //   }
+      // }
     },
-    markers:{
-        colors:["#fff"],
-        strokeWidth:3,
-        // strokeOpacity:1,
-        strokeColor:"#fff",
-        style:"hollow",
-        size:0
+    markers: {
+      colors: ["#fff"],
+      strokeWidth: 3,
+      // strokeOpacity:1,
+      strokeColor: "#fff",
+      style: "hollow",
+      size: 0,
     },
-    tooltip:{
-        theme:"dark"
+    tooltip: {
+      theme: "dark",
     },
-    fill:{
-        type:"gradient",
-        gradient:{
-            shadeIntensity:0.1,
-            inverseColors:false,
-            opacityFrom:0.1,
-            opacityTo:0.4,
-            stops:[0,100]
-        }
+    fill: {
+      type: "gradient",
+      gradient: {
+        shadeIntensity: 0.1,
+        inverseColors: false,
+        opacityFrom: 0.1,
+        opacityTo: 0.4,
+        stops: [0, 100],
+      },
     },
-    grid:{
-        borderColor:"#47535E",
-        strokeDashArray:4,
-        show:true
-    }
-    
-  }
-  const handleActiveLable=(value)=>{
-    setActiveLable(value)
-  }
-  return (<div>
-    <div className="space-x-3">
-      {timeSeries.map((item) => (
-        <Button className="rounded-full" onClick={() => handleActiveLable(item.lable)} variant={activeLable == item.lable ? "default" : "ghost"} key={item.lable}>{item.lable}</Button>
-      ))}
-
+    grid: {
+      borderColor: "#47535E",
+      strokeDashArray: 4,
+      show: true,
+    },
+  };
+  const handleActiveLable = (value) => {
+    setActiveLable(value);
+  };
+  return (
+    <div>
+      <div className="space-x-3">
+        {timeSeries.map((item) => (
+          <Button
+            className="rounded-full"
+            onClick={() => handleActiveLable(item.lable)}
+            variant={activeLable == item.lable ? "default" : "ghost"}
+            key={item.lable}
+          >
+            {item.lable}
+          </Button>
+        ))}
+      </div>
+      <div id="chart-timelines">
+        <ReactApexChart options={options} series={series} type="area" />
+      </div>
     </div>
-    <div id="chart-timelines">
-<ReactApexChart options={options} series={series} type="area"/>
-    </div>
-  </div>
   );
 };
 
