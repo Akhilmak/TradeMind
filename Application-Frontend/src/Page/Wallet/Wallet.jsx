@@ -52,7 +52,7 @@ const Wallet = () => {
             </div>
 
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className='w-50'>
             <DialogHeader>
               <DialogTitle className='text-center text-xl'>
                 Top Up Your Wallet
