@@ -14,9 +14,9 @@ import PaymentDetailsForm from "./PaymentDetailsForm"
 
 const PaymentDetails = () => {
   return (
-    <div className="px-20 ">
-      <h1 className=" font-bold py-10 text-3xl items-center"> Account Details</h1>
-      <Card className=''>
+    <div className="p-10 flex flex-col items-center content-center">
+      <h1 className=" font-bold py-5 text-3xl "> Account Details</h1>
+      {false?<Card className='w-96'>
         <CardHeader>
           <CardTitle>State Bank of India</CardTitle>
           <CardDescription>A/c No: *******5550</CardDescription>
@@ -31,10 +31,9 @@ const PaymentDetails = () => {
               <p className="text-gray-400 ">: SBIN******</p>
               </div>
           </CardContent>
-      </Card>
-      <Dialog>
-  <DialogTrigger>
-    <Button className='py-6'> Add Payment Details</Button>
+      </Card>:<Dialog >
+  <DialogTrigger className="pt-5 ">
+    <Button className='py-6 rounded-full '> Add Payment Details</Button>
   </DialogTrigger>
   <DialogContent>
     <DialogHeader>
@@ -43,7 +42,8 @@ const PaymentDetails = () => {
     </DialogHeader>
     <PaymentDetailsForm/>
   </DialogContent>
-</Dialog>
+</Dialog>}
+      
 
 
     </div>
