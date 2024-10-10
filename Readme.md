@@ -1,6 +1,10 @@
-![Logo](./Assets/Logo.png)
+
+![Logo](./Assets/Logo.png )
+
+<div style="justify-content: center; align-items: center; width:100vh">
 
 Welcome to **TradeMind**, a cryptocurrency trading application built with a modern stack using *Shadcn/ui* for the frontend and *Spring Boot* for the backend. TradeMind is designed to provide a seamless and efficient trading experience for users, enabling them to manage assets, track orders, and conduct transactions in the ever-evolving world of cryptocurrency.
+
 
 ## Table of Contents
 
@@ -86,3 +90,5 @@ We welcome contributions! If you have suggestions or improvements, please fork t
 3. Make your changes and commit them (`git commit -m 'Add some feature'`).
 4. Push to the branch (`git push origin feature/YourFeature`).
 5. Open a pull request.
+
+</div>
