@@ -1,7 +1,6 @@
-![Logo](https://drive.google.com/file/d/1L6cAgYQY55QmY43pbkd7ckmUIhjxYI_7/view?usp=sharing)
-# TradeMind
+![Logo](./assets/logo.png)
 
-Welcome to TradeMind, a cryptocurrency trading application built with a modern stack using **Shadcn/ui** for the frontend and **Spring Boot** for the backend. TradeMind is designed to provide a seamless and efficient trading experience for users, enabling them to manage assets, track orders, and conduct transactions in the ever-evolving world of cryptocurrency.
+Welcome to **TradeMind**, a cryptocurrency trading application built with a modern stack using *Shadcn/ui* for the frontend and *Spring Boot* for the backend. TradeMind is designed to provide a seamless and efficient trading experience for users, enabling them to manage assets, track orders, and conduct transactions in the ever-evolving world of cryptocurrency.
 
 ## Table of Contents
 
