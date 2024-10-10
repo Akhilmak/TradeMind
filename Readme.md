@@ -9,9 +9,10 @@ Welcome to **TradeMind**, a cryptocurrency trading application built with a mode
 ## Table of Contents
 
 - [Features](#features)
-- [Technologies](#technologies)
+- [Tech Stack](#tech-stack)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Api Reference](#api-reference)
 - [Contributing](#contributing)
 
 ## Features
@@ -23,12 +24,16 @@ Welcome to **TradeMind**, a cryptocurrency trading application built with a mode
 - **Watchlist**: Add assets to a personal watchlist for easy tracking.
 - **Two-Factor Authentication**: Enhanced security for user accounts.
 
-## Technologies
+## Tech Stack
 
-- **Frontend**: Shadcn/ui
-- **Backend**: Spring Boot
-- **Database**: MySQL
-- **Security**: JWT (JSON Web Tokens)
+**Client:** React, TailwindCSS, Shadcn/ui
+
+**Server:** Spring Boot
+
+**Database**: MySQL
+
+**Security**: JWT (JSON Web Tokens)
+
 
 ## Installation
 
@@ -80,6 +85,48 @@ Welcome to **TradeMind**, a cryptocurrency trading application built with a mode
 2. **Login** to your account and receive a JWT token.
 3. Use the token to access protected routes for managing orders, assets, and transactions.
 4. Explore the UI built with Shadcn/ui to interact with the application.
+
+
+## API Reference
+
+### SignUp
+
+```http
+  POST localhost:8080/auth/signup
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `fullName` | `String` | **Required**. |
+| `email` | `String` | **Required**. |
+| `password` | `String` | **Required**. |
+
+
+### Get User Profile By JWT
+
+```http
+  GET localhost:8080/api/user/profile
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `{{JWT}}`      | `string` | **Required** |
+
+#### Get Coin by ID(*CoinName*)
+
+```http
+  GET localhost:8080/coins/details/bitcoin
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `coinName`      | `string` | **Required** |
+
+
+
+
+
+
 
 ## Contributing
 
