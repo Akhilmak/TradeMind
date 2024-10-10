@@ -9,8 +9,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { useNavigate } from "react-router-dom";
+
 
 const AssetTable = () => {
+  const navigate=useNavigate()
   return (
     <Table>
       <TableCaption>A list of your recent invoices.</TableCaption>
@@ -26,7 +29,7 @@ const AssetTable = () => {
       </TableHeader>
       <TableBody>
         {[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1].map((item,index) =>  <TableRow key={index}>
-          <TableCell className="font-medium flex items-center gap-2">
+          <TableCell onClick={()=>navigate(`/market/bitcoin`)}  className="font-medium flex items-center gap-2 cursor-pointer">
             <Avatar className="-z-50">
               <AvatarImage src="https://cdn.pixabay.com/photo/2017/07/27/23/09/bitcoin-2547131_1280.png"></AvatarImage>
             </Avatar>
