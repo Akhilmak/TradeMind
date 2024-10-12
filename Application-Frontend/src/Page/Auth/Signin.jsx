@@ -9,11 +9,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { login } from "@/State/Auth/Action";
 import { DialogClose } from "@radix-ui/react-dialog";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 const Signin = () => {
+  const dispatch=useDispatch()
   const form = useForm({
     resolver: "",
     defaultValues: {
@@ -23,6 +26,7 @@ const Signin = () => {
     },
   });
   const onSubmit = (data) => {
+    dispatch(login(data))
     console.log(data);
   };
   return (
