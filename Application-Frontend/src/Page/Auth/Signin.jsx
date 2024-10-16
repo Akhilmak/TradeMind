@@ -20,7 +20,7 @@ const Signin = () => {
   const form = useForm({
     resolver: "",
     defaultValues: {
-      eMail: "",
+      email: "",
       password: "",
       
     },
@@ -37,7 +37,7 @@ const Signin = () => {
           
           <FormField
             control={form.control}
-            name="eMail"
+            name="email"
             render={({ field }) => (
               <FormItem>
                 <FormControl>

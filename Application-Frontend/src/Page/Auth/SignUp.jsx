@@ -21,9 +21,8 @@ const SignUp = () => {
     resolver: "",
     defaultValues: {
       fullName: "",
-      eMail: "",
+      email: "",
       password: "",
-      
     },
   });
   const onSubmit = (data) => {
@@ -53,7 +52,7 @@ const SignUp = () => {
           />
           <FormField
             control={form.control}
-            name="eMail"
+            name="email"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
