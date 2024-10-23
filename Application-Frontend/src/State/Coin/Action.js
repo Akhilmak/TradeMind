@@ -1,5 +1,5 @@
 import { baseUrl } from "@/config/api";
-import { FETCH_COIN_BY_ID_FAILURE, FETCH_COIN_BY_ID_REQUEST, FETCH_COIN_BY_ID_SUCCESS, FETCH_COIN_DETAILS_FAILURE, FETCH_COIN_DETAILS_REQUEST, FETCH_COIN_DETAILS_SUCCESS, FETCH_COIN_LIST_FAILURE, FETCH_COIN_LIST_REQUEST, FETCH_COIN_LIST_SUCCESS, FETCH_MARKET_CHART_FAILURE, FETCH_MARKET_CHART_REQUEST, FETCH_MARKET_CHART_SUCCESS, FETCH_TOP_50_COINS_FAILURE, FETCH_TOP_50_COINS_REQUEST, FETCH_TOP_50_COINS_SUCCESS } from "./Reducer";
+import { FETCH_COIN_BY_ID_FAILURE, FETCH_COIN_BY_ID_REQUEST, FETCH_COIN_BY_ID_SUCCESS, FETCH_COIN_DETAILS_FAILURE, FETCH_COIN_DETAILS_REQUEST, FETCH_COIN_DETAILS_SUCCESS, FETCH_COIN_LIST_FAILURE, FETCH_COIN_LIST_REQUEST, FETCH_COIN_LIST_SUCCESS, FETCH_MARKET_CHART_FAILURE, FETCH_MARKET_CHART_REQUEST, FETCH_MARKET_CHART_SUCCESS, FETCH_SEARCH_COIN_FAILURE, FETCH_SEARCH_COIN_REQUEST, FETCH_SEARCH_COIN_SUCCESS, FETCH_TOP_50_COINS_FAILURE, FETCH_TOP_50_COINS_REQUEST, FETCH_TOP_50_COINS_SUCCESS } from "./Reducer";
 
 export const getCoinList = (page) => async (dispatch) => {
     dispatch({ type: FETCH_COIN_LIST_REQUEST });
@@ -70,6 +70,18 @@ export const getCoinList = (page) => async (dispatch) => {
         console.log(error);
       dispatch({ type: FETCH_COIN_DETAILS_FAILURE, payload: error.message });
       
+    }
+  };
+
+  export const searchCoin = (keyword) => async (dispatch) => {
+    dispatch({ type: FETCH_SEARCH_COIN_REQUEST });
+    try {
+      const {data} = await axios.get(`${baseUrl}/search?q=${keyword}`);
+      console.log("coin",data);
+      dispatch({ type: FETCH_SEARCH_COIN_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({ type: FETCH_SEARCH_COIN_FAILURE, payload: error.message });
+      console.log(error);
     }
   };
 
