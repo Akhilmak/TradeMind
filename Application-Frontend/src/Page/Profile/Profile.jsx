@@ -8,16 +8,19 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 
 import { VerifiedIcon } from "lucide-react";
 import React from "react";
 import AccountVerificationForm from "./AccountVerificationForm";
+import { useSelector } from "react-redux";
+import { store } from "@/State/Store";
 
 const Profile = () => {
-  const handleEnable2FA=()=>{
-    console.log("Enabled 2FA")
-  }
+  const { auth } = useSelector((store) => store);
+  const handleEnable2FA = () => {
+    console.log("Enabled 2FA");
+  };
   return (
     <div className="flex flex-col items-center mb-5">
       <div className="pt-10 w-fit lg:w-[60%]">
@@ -30,11 +33,11 @@ const Profile = () => {
               <div className="space-y-7">
                 <div className="flex">
                   <p className="w-[9rem]"> Email: </p>
-                  <p className="text-gray-400">aak977656@gmail.com</p>
+                  <p className="text-gray-400">{auth.user?.email}</p>
                 </div>
                 <div className="flex">
                   <p className="w-[9rem]"> Full Name: </p>
-                  <p className="text-gray-400">Akhi</p>
+                  <p className="text-gray-400">{auth.user?.fullName}</p>
                 </div>
                 <div className="flex">
                   <p className="w-[9rem]"> Date of Birth: </p>
@@ -62,7 +65,7 @@ const Profile = () => {
                   <p className="w-[9rem]"> Nationality: </p>
                   <p className="text-gray-400">Indian</p>
                 </div>
-              </div>
+              </div> 
             </div>
           </CardContent>
         </Card>
@@ -83,20 +86,23 @@ const Profile = () => {
                 )}
               </div>
             </CardHeader>
-            <CardContent >
-              <div className='flex justify-center  content-center items-center'>
-              <Dialog >
-  <DialogTrigger >
-    <Button className='p-5 text-l'>Enable Two Factor Authentication</Button>
-  </DialogTrigger>
-  <DialogContent>
-    <DialogHeader className='items-center justify-center content-center flex' >
-      <DialogTitle className='text-2xl'>Account Verification</DialogTitle>
-    </DialogHeader>
-    <AccountVerificationForm handleSubmit={handleEnable2FA} />
-  </DialogContent>
-</Dialog>
-
+            <CardContent>
+              <div className="flex justify-center  content-center items-center">
+                <Dialog>
+                  <DialogTrigger>
+                    <Button className="p-5 text-l">
+                      Enable Two Factor Authentication
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader className="items-center justify-center content-center flex">
+                      <DialogTitle className="text-2xl">
+                        Account Verification
+                      </DialogTitle>
+                    </DialogHeader>
+                    <AccountVerificationForm handleSubmit={handleEnable2FA} />
+                  </DialogContent>
+                </Dialog>
               </div>
             </CardContent>
           </Card>

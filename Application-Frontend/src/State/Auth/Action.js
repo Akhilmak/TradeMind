@@ -6,6 +6,7 @@ import {
   LOGIN_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
+  LOGOUT,
   REGISTER_FAILURE,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
@@ -37,6 +38,7 @@ export const login = (userData) => async (dispatch) => {
     console.log(user);
     dispatch({ type: LOGIN_SUCCESS, payload: user.jwt });
     localStorage.setItem("jwt", user.jwt);
+    
   } catch (error) {
     dispatch({ type: LOGIN_FAILURE, payload: error.message });
     console.log(error);
@@ -60,4 +62,9 @@ export const getUser = (jwt) => async (dispatch) => {
     dispatch({ type: GET_USER_FAILURE, payload: error.message });
     console.log(error);
   }
+};
+
+export const logout = () => async (dispatch) => {
+  localStorage.clear();
+  dispatch({ type: LOGOUT });
 };

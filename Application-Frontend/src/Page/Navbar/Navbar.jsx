@@ -8,12 +8,18 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { DragHandleHorizontalIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import {
+  DragHandleHorizontalIcon,
+  MagnifyingGlassIcon,
+} from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import Sidebar from "./Sidebar";
+import { useSelector } from "react-redux";
+import { store } from "@/State/Store";
 
 const Navbar = () => {
+  const { auth } = useSelector((store) => store);
   return (
     <div className="px-2 py-3 border-b z-50 bg-background bg-opacity-0 sticky top-0 left-0 right-0 flex justify-between items-center">
       <div className="flex items-center gap-3">
@@ -43,26 +49,28 @@ const Navbar = () => {
                   </div>
                 </div>
               </SheetTitle>
-              <SheetDescription>
-                
-              </SheetDescription>
+              <SheetDescription></SheetDescription>
             </SheetHeader>
-            <Sidebar/>
+            <Sidebar />
           </SheetContent>
         </Sheet>
-        <p className="text-3xl font-bold lg:text-base  cursor-pointer">Trademind</p>
+        <p className="text-3xl font-bold lg:text-base  cursor-pointer">
+          Trademind
+        </p>
         <div className="p-0 ml-9">
-          <Button variant="ghost" className="flex items-center gap-3 rounded-full">  
-            <MagnifyingGlassIcon/>
+          <Button
+            variant="ghost"
+            className="flex items-center gap-3 rounded-full"
+          >
+            <MagnifyingGlassIcon />
             <span>Search</span>
-
           </Button>
         </div>
       </div>
       <div>
         <Avatar>
           <AvatarFallback>
-            A
+            {auth.user?.fullName[0].toUpperCase()}
           </AvatarFallback>
         </Avatar>
       </div>
