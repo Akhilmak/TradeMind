@@ -1,17 +1,26 @@
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useEffect } from "react";
 import AssetTable from "./AssetTable";
 import StockDataChart from "./StockDataChart";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Cross1Icon, DotIcon } from "@radix-ui/react-icons";
 import { MessageCircle, MessageCircleQuestion } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCoinList } from "@/State/Coin/Action";
+import { store } from "@/State/Store";
 
 const Home = () => {
   const [category, setCategory] = React.useState("all");
+  const { coin } = useSelector((store) => store);
+  const dispatch = useDispatch();
   const handleCategory = (value) => {
     console.log("Handling category change:", value);
     setCategory(value);
   };
+
+  useEffect(() => {
+    dispatch(getCoinList(1));
+  }, []);
 
   return (
     <div className="relative ">
@@ -48,7 +57,7 @@ const Home = () => {
             </Button>
           </div>
 
-          <AssetTable></AssetTable>
+          <AssetTable coin={coin.coinList} category={category}></AssetTable>
         </div>
         <div className="hidden lg:w-[50%] lg:block p-5  ">
           <StockDataChart />

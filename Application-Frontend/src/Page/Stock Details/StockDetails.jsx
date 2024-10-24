@@ -5,7 +5,7 @@ import {
   BookmarkIcon,
   DotIcon,
 } from "@radix-ui/react-icons";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -16,15 +16,27 @@ import {
 } from "@/components/ui/dialog";
 import TradingForm from "./TradingForm";
 import StockDataChart from "../Home/StockDataChart";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchCoinDetails } from "@/State/Coin/Action";
+import { store } from "@/State/Store";
 
 const StockDetails = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(fetchCoinDetails({ coinId: id ,jwt:localStorage.getItem("jwt") }));
+  }, [id]);
+  const {coin}=useSelector((store)=>store)
+  console.log(coin.coinDetails)
   return (
     <div className="p-5 mt-5">
       <div className="flex justify-between">
         <div className="flex gap-5 items-center">
           <div>
             <Avatar>
-              <AvatarImage src="https://cdn.pixabay.com/photo/2015/08/27/11/20/bitcoin-910307_1280.png" />
+              <AvatarImage src={coin.coinDetails?.image.large} />
             </Avatar>
           </div>
           <div>
@@ -43,7 +55,7 @@ const StockDetails = () => {
           </div>
         </div>
         <div className="flex items-center gap-5 ">
-          <Button  className="h-10">
+          <Button className="h-10">
             {true ? (
               <BookmarkFilledIcon className="h-6 w-6 " />
             ) : (
@@ -52,19 +64,22 @@ const StockDetails = () => {
           </Button>
           <Dialog>
             <DialogTrigger>
-              <Button size="lg" className='font-bold'>Trade</Button>
+              <Button size="lg" className="font-bold">
+                Trade
+              </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>How much do you want to spend?</DialogTitle>
               </DialogHeader>
-              <TradingForm/>
+              <TradingForm />
             </DialogContent>
           </Dialog>
         </div>
       </div>
-      <div  className=" p-10"><StockDataChart/></div>
-      
+      <div className=" p-10">
+        <StockDataChart />
+      </div>
     </div>
   );
 };
