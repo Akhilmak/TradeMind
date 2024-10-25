@@ -11,24 +11,27 @@ import {
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const AssetTable = ({coin,category}) => {
   const navigate=useNavigate()
 
-
   return (
-    <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Coin</TableHead>
-          <TableHead>Symbol</TableHead>
-          <TableHead>Volume</TableHead>
+    <div className=" w-[1000vh]"> 
+      <Table >
+      
+      <ScrollArea className={`${category=="all"?"h-[70vh]":"h-[78vh]"}`}>
+         <TableHeader>
+        <TableRow >
+          <TableHead className="w-[50%]">Coin</TableHead>
+          <TableHead >Symbol</TableHead>
+          <TableHead >Volume</TableHead>
           <TableHead>Market Cap</TableHead>
           <TableHead>Last 24H</TableHead>
           <TableHead className="text-right">Current Price</TableHead>
         </TableRow>
       </TableHeader>
+      
       <TableBody>
         {coin.map((item,index) =>  <TableRow key={item.id}>
           <TableCell onClick={()=>navigate(`/market/${item.id}`)}  className="font-medium flex items-center gap-2 cursor-pointer">
@@ -47,7 +50,14 @@ const AssetTable = ({coin,category}) => {
         )}
        
       </TableBody>
-    </Table>
+      
+      </ScrollArea>
+      </Table>
+    </div>
+    
+       
+      
+    
   );
 };
 

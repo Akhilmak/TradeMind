@@ -24,12 +24,10 @@ import { store } from "@/State/Store";
 const StockDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-
   useEffect(() => {
     dispatch(fetchCoinDetails({ coinId: id ,jwt:localStorage.getItem("jwt") }));
   }, [id]);
   const {coin}=useSelector((store)=>store)
-  console.log(coin.coinDetails)
   return (
     <div className="p-5 mt-5">
       <div className="flex justify-between">
@@ -41,15 +39,15 @@ const StockDetails = () => {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <p>BTC</p>
+              <p>{coin.coinDetails?.symbol.toUpperCase()}</p>
               <DotIcon className="text-gray-400"></DotIcon>
-              <p className="text-gray-400">Bitcoin</p>
+              <p className="text-gray-400">{coin.coinDetails?.name}</p>
             </div>
             <div className="items-end flex gap-2">
-              <p className="font-bold text-xl">$9999</p>
+              <p className="font-bold text-xl">$ {coin.coinDetails?.market_data.current_price.usd}</p>
               <p className="text-red-600">
-                <span className="p-2">-17871536.986</span>
-                <span>(-0.29803%)</span>
+                <span className="p-2">-{coin.coinDetails?.market_data.market_cap_change_24h}</span>
+                <span>(-{coin.coinDetails?.market_data.market_cap_change_percentage_24h} %)</span>
               </p>
             </div>
           </div>
@@ -78,7 +76,7 @@ const StockDetails = () => {
         </div>
       </div>
       <div className=" p-10">
-        <StockDataChart />
+        <StockDataChart  coinId={id}/>
       </div>
     </div>
   );

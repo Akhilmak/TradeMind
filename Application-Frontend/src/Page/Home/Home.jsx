@@ -6,7 +6,17 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Cross1Icon, DotIcon } from "@radix-ui/react-icons";
 import { MessageCircle, MessageCircleQuestion } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCoinList } from "@/State/Coin/Action";
+import { getCoinList, getTOP50CoinList } from "@/State/Coin/Action";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+
 import { store } from "@/State/Store";
 
 const Home = () => {
@@ -22,11 +32,15 @@ const Home = () => {
     dispatch(getCoinList(1));
   }, []);
 
+  useEffect(() => {
+    dispatch(getTOP50CoinList());
+  }, [category]);
+
   return (
-    <div className="relative ">
-      <div className="lg:flex">
-        <div className="lg:w-[50%] lg:border-r">
-          <div className="p-3 flex items-center gap-4">
+    <div className="relative overflow-hidden">
+      <div className="lg:flex justify-between">
+        <div className="lg:w-[50%] lg:border-r lg:block p-5">
+          <div className="p-3 flex items-center gap-4 w-full">
             <Button
               onClick={() => handleCategory("all")}
               variant={category == "all" ? "default" : "outline"}
@@ -56,11 +70,30 @@ const Home = () => {
               Top Losers
             </Button>
           </div>
-
-          <AssetTable coin={coin.coinList} category={category}></AssetTable>
+          <AssetTable
+            coin={category == "all" ? coin.coinList : coin.top50}
+          ></AssetTable>
+          <div>
+            <Pagination className={"h-5 pt-5 pb-5"}>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious href="#" />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#">1</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext href="#" />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
         </div>
         <div className="hidden lg:w-[50%] lg:block p-5  ">
-          <StockDataChart />
+          <StockDataChart coinId={"bitcoin"} />
           <div className="flex gap-5 items-center">
             <div>
               <Avatar>
@@ -71,7 +104,7 @@ const Home = () => {
                 />
               </Avatar>
             </div>
-            <div>
+            <div className="items-center  justify-center content-center">
               <div className="flex items-center gap-2">
                 <p>BTC</p>
                 <DotIcon className="text-gray-400" />
@@ -91,43 +124,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {/* <section className="fixed bottom-5 left-5 right-5 z-40 flex flex-col justify-end  items-end gap-2">
-        <div className="rounded-md w-[30rem] md-[25rem] lg-[30rem] h-[50vh] bg-slate-900 bg-opacity-50 border-white ">
-          <div className="flex justify-between items-center p-3 border-b px-2 h-[12%]">
-            <p>ChatBot</p>
-            <Button variant="ghost" size="icon">
-              <Cross1Icon />
-            </Button>
-          </div>
-          <div className="h-[76%] flex flex-col overflow-y-auto gap-5 px-5 py-2 scroll-container">
-            <div className="self-start pb-5 w-auto">
-              <div className="justify-end self-end px-5 py-2 w-auto bg-blue-700 rounded-full">
-                <p>Hello User,</p>
-                <p>You can ask any Crypto related Questions here</p>
-              </div>
-            </div>
-            <div className="self-start pb-5 w-auto">
-              <div className="justify-end self-end px-5 py-2 w-auto bg-blue-700 rounded-full">
-                <p>Hello User,</p>
-                <p>You can ask any Crypto related Questions here</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="relative w-[10rem] cursor-pointer group ">
-          <Button
-            variant="ghost"
-            className="w-full h-[3rem] gap-2 items-center"
-          >
-            <MessageCircle
-              size={30}
-              className="fill-[#fff] -rotate-90 stroke-none group-hover:fill-[#fff]"
-            />
-            <span className="text-2xl  ">Chatbot</span>
-          </Button>
-        </div>
-      </section> */}
     </div>
   );
 };

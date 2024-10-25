@@ -33,6 +33,43 @@ export const getCoinList = (page) => async (dispatch) => {
   }
 };
 
+export const fetchCoinDetails =
+  ({ coinId, jwt }) =>
+  async (dispatch) => {
+    dispatch({ type: FETCH_COIN_DETAILS_REQUEST });
+    // console.log(jwt);
+    try {
+      const {data} = await axios.get(`${baseUrl}/coins/details/${coinId}`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+      // console.log("CoinDetails", data);
+      dispatch({ type: FETCH_COIN_DETAILS_SUCCESS, payload: data });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: FETCH_COIN_DETAILS_FAILURE, payload: error.message });
+    }
+  };
+  export const fetchMarketChart =
+  ({ coinId, days, jwt }) =>
+  async (dispatch) => {
+    dispatch({ type: FETCH_MARKET_CHART_REQUEST });
+    try {
+      const {data} = await axios.get(`${baseUrl}/coins/${coinId}/chart?days=${days}`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+      console.log("Market Chart", data);
+      dispatch({ type: FETCH_MARKET_CHART_SUCCESS, payload: data });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: FETCH_MARKET_CHART_FAILURE, payload: error.message });
+    }
+  };
+
+
 export const getTOP50CoinList = () => async (dispatch) => {
   dispatch({ type: FETCH_TOP_50_COINS_REQUEST });
   try {
@@ -45,23 +82,6 @@ export const getTOP50CoinList = () => async (dispatch) => {
   }
 };
 
-export const fetchMarketChart =
-  ({ coinId, days, jwt }) =>
-  async (dispatch) => {
-    dispatch({ type: FETCH_MARKET_CHART_REQUEST });
-    try {
-      const response = await axios.get(`/coins/${coinId}/chart?days=${days}`, {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      });
-      console.log("top 50", data);
-      dispatch({ type: FETCH_MARKET_CHART_SUCCESS, payload: response.data });
-    } catch (error) {
-      console.log(error);
-      dispatch({ type: FETCH_MARKET_CHART_FAILURE, payload: error.message });
-    }
-  };
 
 export const fetchCoinById = (coinId) => async (dispatch) => {
   dispatch({ type: FETCH_COIN_BY_ID_REQUEST });
@@ -75,23 +95,7 @@ export const fetchCoinById = (coinId) => async (dispatch) => {
   }
 };
 
-export const fetchCoinDetails =
-  ({ coinId, jwt }) =>
-  async (dispatch) => {
-    dispatch({ type: FETCH_COIN_DETAILS_REQUEST });
-    console.log(jwt);
-    try {
-      const response = await axios.get(`${baseUrl}/coins/details/${coinId}`, {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      });
-      console.log("CoinDetails", response.data);
-    } catch (error) {
-      console.log(error);
-      dispatch({ type: FETCH_COIN_DETAILS_FAILURE, payload: error.message });
-    }
-  };
+
 
 export const searchCoin = (keyword) => async (dispatch) => {
   dispatch({ type: FETCH_SEARCH_COIN_REQUEST });
