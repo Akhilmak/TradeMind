@@ -16,10 +16,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { store } from "./State/Store";
 import { useEffect } from "react";
 import { getUser } from "./State/Auth/Action";
+import Development from "./Page/Development/Development";
 
 function App() {
   const { auth } = useSelector((store) => store);
   const dispatch = useDispatch();
+  const development = true;
   // console.log("auth---" + auth);
   useEffect(() => {
     dispatch(getUser(auth.jwt || localStorage.getItem("jwt")));
@@ -31,11 +33,31 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/portfolio" element={<Portfolio />}></Route>
-            <Route path="/activity" element={<Activity />}></Route>
-            <Route path="/wallet" element={<Wallet />}></Route>
-            <Route path="/withdrawal" element={<Withdrawal />}></Route>
-            <Route path="/payment-details" element={<PaymentDetails />}></Route>
+            {development ? (
+              <>
+                <Route path="/activity" element={<Development />}></Route>
+                <Route path="/wallet" element={<Development />}></Route>
+                <Route path="/withdrawal" element={<Development />}></Route>
+                <Route
+                  path="/payment-details"
+                  element={<Development />}
+                ></Route>
+                <Route path="/portfolio" element={<Development />}></Route>
+              </>
+            ) : (
+              <>
+                <Route path="/activity" element={<Activity />}></Route>
+                <Route path="/wallet" element={<Wallet />}></Route>
+                <Route path="/withdrawal" element={<Withdrawal />}></Route>
+                <Route
+                  path="/payment-details"
+                  element={<PaymentDetails />}
+                ></Route>
+                <Route path="/portfolio" element={<Portfolio />}></Route>
+              </>
+            )}
+            
+
             <Route path="/market/:id" element={<StockDetails />}></Route>
             <Route path="/watchlist" element={<Watchlist />}></Route>
             <Route path="/profile" element={<Profile />}></Route>

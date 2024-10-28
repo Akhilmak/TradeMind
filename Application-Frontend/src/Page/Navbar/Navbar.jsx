@@ -40,9 +40,9 @@ const Navbar = () => {
             <SheetHeader>
               <SheetTitle>
                 <div className="text-3xl flex justify-center items-center gap-1">
-                  <Avatar>
+                  {/* <Avatar>
                     <AvatarImage src="https://cdn.pixabay.com/photo/2015/08/27/11/20/bitcoin-910307_1280.png"></AvatarImage>
-                  </Avatar>
+                  </Avatar> */}
                   <div>
                     <span className="font-bold text-orange-600">Trade</span>
                     <span>Mind</span>

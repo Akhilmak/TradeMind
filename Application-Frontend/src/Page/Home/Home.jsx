@@ -94,30 +94,28 @@ const Home = () => {
         </div>
         <div className="hidden lg:w-[50%] lg:block p-5  ">
           <StockDataChart coinId={"bitcoin"} />
-          <div className="flex gap-5 items-center">
+          <div className="flex gap-5 items-center content-center justify-center pt-4">
             <div>
               <Avatar>
                 <AvatarImage
-                  src={
-                    "https://cdn.pixabay.com/photo/2017/07/27/23/09/bitcoin-2547131_1280.png"
-                  }
+                  src=""
                 />
               </Avatar>
             </div>
             <div className="items-center  justify-center content-center">
               <div className="flex items-center gap-2">
-                <p>BTC</p>
+                <p>"hu"</p>
                 <DotIcon className="text-gray-400" />
-                <p className="text-gray-400"> Bitcoin</p>
+                <p className="text-gray-400" > Bitcoin</p>
               </div>
               <div className="flex items-end gap-2">
                 <p className="text:xl font-bold">
-                  5454
+                
                   {/* price */}
                 </p>
                 <p className="text-red-600">
-                  <span>-821368763</span>
-                  <span>(-0.38968%)</span>
+                  <span>{coin.coinList[0]?.price_change_24h} </span>
+                  <span>({coin.coinList[0]?.price_change_percentage_24h} %)</span>
                 </p>
               </div>
             </div>

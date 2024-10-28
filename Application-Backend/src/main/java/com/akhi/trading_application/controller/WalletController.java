@@ -50,7 +50,7 @@ public class WalletController {
     }
 
 
-    @PutMapping("api/wallet/{walletId}/transefer")
+    @PutMapping("api/wallet/{walletId}/transfer")
     ResponseEntity<Wallet> walletToWalletTransaction(@RequestHeader("Authorization") String jwt, @PathVariable Long walletId,@RequestBody WalletTransaction transaction)throws Exception{
         
         User senderUser=userService.findUserByJwt(jwt);

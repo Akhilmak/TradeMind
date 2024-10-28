@@ -20,14 +20,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchCoinDetails } from "@/State/Coin/Action";
 import { store } from "@/State/Store";
+import { addCoinToWatchList, getUserWatchlist } from "@/State/WatchList/Action";
+import { existInWatchList } from "@/utils/existInWatchList";
 
 const StockDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   useEffect(() => {
     dispatch(fetchCoinDetails({ coinId: id ,jwt:localStorage.getItem("jwt") }));
+    dispatch(getUserWatchlist(localStorage.getItem("jwt")));
   }, [id]);
-  const {coin}=useSelector((store)=>store)
+  const {coin,watchlist}=useSelector((store)=>store)
+
+  const handleAddToWatchList=()=>{
+    console.log(coin.coinDetails.id)
+    dispatch(addCoinToWatchList({coinId:coin.coinDetails.id}))
+  }
   return (
     <div className="p-5 mt-5">
       <div className="flex justify-between">
@@ -53,8 +61,8 @@ const StockDetails = () => {
           </div>
         </div>
         <div className="flex items-center gap-5 ">
-          <Button className="h-10">
-            {true ? (
+          <Button onClick={handleAddToWatchList} className="h-10">
+            {existInWatchList(watchlist.items,coin.coinDetails) ? (
               <BookmarkFilledIcon className="h-6 w-6 " />
             ) : (
               <BookmarkIcon className="h-6 w-6" />
