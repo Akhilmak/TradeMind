@@ -35,7 +35,7 @@ SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
                 CorsConfiguration corsConfiguration = new CorsConfiguration();
-                corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+                corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:5173","https://trade-mind-seven.vercel.app"));
                 corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS","PATCH"));
                 corsConfiguration.setAllowCredentials(true);
                 corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
